@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(uuid()) @db.Uuid
+  name         String
+  email        String         @unique
+  password     String
+  orders       Order[]
+  createdAt    DateTime       @default(now())
+  accounts     Account[]
+  sessions     Session[]
+  role         String
+  userImageUrl String? // если пользователь загрузит фото
+  UsersCourses UsersCourses[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @db.Uuid
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String   @db.Uuid
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Location {
+  id                         String              @id @unique @default(uuid()) @db.Uuid
+  name                       String
+  description                String?
+  requiredCertificationLevel CertificationLevel?
+  locationImgUrl             String? // если пользователь загрузит фото
+  orders                     Order[]
+}
+
+model Program {
+  id                         String              @id @unique @default(uuid()) @db.Uuid
+  title                      String
+  subtitle                   String
+  description                String?
+  included                   String[] // например: ["1 час брифинга", "1 час дайвинга", ...]
+  required                   String[] // например: ["купальник", "полотенце", ...]
+  prices                     Price[] // связь с таблицей цен
+  orders                     Order[]
+  requiredCertificationLevel CertificationLevel?
+  createdAt                  DateTime            @default(now())
+  updatedAt                  DateTime            @updatedAt
+}
+
+model UsersCourses {
+  id                 String   @id @unique @default(uuid()) @db.Uuid
+  userId             String?  @db.Uuid
+  user               User?    @relation(fields: [userId], references: [id])
+  courseId           String?  @db.Uuid
+  numberOfClassesNow String?
+  courses            Courses? @relation(fields: [coursesId], references: [id])
+  coursesId          String?  @db.Uuid
+}
+
+model Courses {
+  id                 String         @id @unique @default(uuid()) @db.Uuid
+  title              String
+  subtitle           String
+  numberOfClassesAll String?
+  UsersCourses       UsersCourses[]
+  prices             String
+  createdAt          DateTime       @default(now())
+}
+
+enum CertificationLevel {
+  NONE
+  BEGINNER
+  OPEN_WATER
+  ADVANCED
+  RESCUE
+  DIVE_MASTER
+}
+
+model Price {
+  id        String  @id @default(uuid()) @db.Uuid
+  label     String
+  amount    Int
+  program   Program @relation(fields: [programId], references: [id])
+  programId String  @db.Uuid
+}
+
+model Order {
+  id         String      @id @unique @default(uuid()) @db.Uuid
+  userId     String?     @db.Uuid
+  user       User?       @relation(fields: [userId], references: [id])
+  email      String?
+  phone      String?
+  fio        String?
+  locationId String      @db.Uuid
+  location   Location    @relation(fields: [locationId], references: [id])
+  programId  String      @db.Uuid
+  program    Program     @relation(fields: [programId], references: [id])
+  createdAt  DateTime    @default(now())
+  dateTime   DateTime
+  status     OrderStatus @default(NEW)
+}
+
+enum OrderStatus {
+  NEW
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
