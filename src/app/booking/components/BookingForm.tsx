@@ -6,6 +6,7 @@ import {
   FormEventHandler,
   InputHTMLAttributes,
   SelectHTMLAttributes,
+  Suspense,
   useEffect,
   useState,
 } from "react";
@@ -16,9 +17,11 @@ import { createBooking } from "../actions";
 
 export default function BookingFormWrapper({ programs, locations }: any) {
   return (
-    <SessionProvider>
-      <BookingForm programs={programs} locations={locations} />
-    </SessionProvider>
+    <Suspense fallback={<div>Loading...</div>}>
+      <SessionProvider>
+        <BookingForm programs={programs} locations={locations} />
+      </SessionProvider>
+    </Suspense>
   );
 }
 
