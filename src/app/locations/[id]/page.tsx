@@ -5,9 +5,9 @@ import { getLocations } from "../actions";
 export default async function LocationPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const locationId = params.id;
+  const locationId = (await params).id;
 
   const location = await getLocations(locationId);
 
