@@ -1,4 +1,4 @@
-import { getLocations } from "../actions";
+import { getLocation } from "../actions";
 
 export default async function LocationPage({
   params,
@@ -7,7 +7,7 @@ export default async function LocationPage({
 }) {
   const locationId = (await params).id;
 
-  const location = await getLocations(locationId);
+  const location = await getLocation(locationId);
 
   const imageSrc =
     location.name === "Коралловый город"

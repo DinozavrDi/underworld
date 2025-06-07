@@ -1,9 +1,10 @@
 // app/locations/LocationsList.tsx
 import prisma from "@/lib/db";
 import Link from "next/link";
+import { getLocations } from "../actions";
 
 export default async function LocationsList() {
-  const locations = await prisma.location.findMany();
+  const locations = await getLocations();
 
   return (
     <div className="flex flex-col gap-24 px-4 py-20">
