@@ -17,7 +17,7 @@ export default async function ProgramsPage() {
       </section>
 
       <ProgramList programs={programs} />
-      <OfferSection />
+      {/* <OfferSection /> */}
     </main>
   );
 }
