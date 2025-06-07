@@ -1,5 +1,3 @@
-// app/locations/page.tsx
-
 import { getLocations } from "./actions";
 import LocationIntro from "./components/LocationIntro";
 import LocationsList from "./components/LocationList";
