@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const id = (await params).id;
 
-  const locations = await prisma.location.findUnique({
+  const location = await prisma.location.findUnique({
     where: {
       id: id.toString(),
     },
@@ -20,17 +20,14 @@ export async function GET(
     },
   });
 
-  if (!locations) {
-    return new Response(
-      JSON.stringify({ message: "Error while creating order" }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+  if (!location) {
+    return new Response(JSON.stringify([]), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
-  return new Response(JSON.stringify(locations), {
+  return new Response(JSON.stringify(location), {
     status: 201,
     headers: { "Content-Type": "application/json" },
   });
