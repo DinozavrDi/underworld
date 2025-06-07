@@ -18,7 +18,7 @@ export default function RegForm() {
       const email = formData.get("email")?.toString();
       const password = formData.get("password")?.toString();
 
-      if (response?.email && email && password) {
+      if (response.ok) {
         const res = await signIn("credentials", {
           email,
           password,

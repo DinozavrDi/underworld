@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const id = (await params).id;
 
-  const locations = await prisma.location.findMany({
+  const locations = await prisma.location.findUnique({
     where: {
       id: id.toString(),
     },
