@@ -1,5 +1,3 @@
-import prisma from "@/lib/db";
-import { notFound } from "next/navigation";
 import { getLocations } from "../actions";
 
 export default async function LocationPage({
@@ -10,8 +8,6 @@ export default async function LocationPage({
   const locationId = (await params).id;
 
   const location = await getLocations(locationId);
-
-  if (!location) return notFound();
 
   const imageSrc =
     location.name === "Коралловый город"
