@@ -1,46 +1,47 @@
-'use client';
-import { motion, useTransform, useScroll } from 'framer-motion';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+"use client";
+import { motion, useTransform, useScroll } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [fontSize, setFontSize] = useState('15vw'); // Адаптивный размер для DEEPWORLD
+  const [fontSize, setFontSize] = useState("15vw"); // Адаптивный размер для DEEPWORLD
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   useEffect(() => {
     const handleResize = () => {
       // Динамически меняем размер DEEPWORLD
-      setFontSize(Math.min(window.innerWidth * 0.15, 200) + 'px');
+      setFontSize(Math.min(window.innerWidth * 0.15, 200) + "px");
     };
-    
+
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden h-[calc(100vh+180px)] "> {/* Увеличенная высота */}
+    <div className="relative w-full overflow-hidden h-[calc(100vh+180px)] ">
+      {" "}
+      {/* Увеличенная высота */}
       {/* Фоновое изображение */}
       <motion.div style={{ y }} className="absolute inset-0">
         <Image
-          src="https://get.wallhere.com/photo/sea-rock-water-underwater-1807397.jpg"
+          src="/images/main-bg.jpg"
           alt="Горный пейзаж"
           fill
           className="object-cover"
           priority
         />
       </motion.div>
-
       {/* Затемнение фона */}
       <div className="absolute inset-0 bg-black/30" />
-
       {/* Основной контент */}
       <div className="relative h-full  w-full flex flex-col justify-center mt-32">
         {/* 1. Верхний ряд: Название и дата */}
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
@@ -76,18 +77,16 @@ export default function Home() {
         </motion.div>
 
         {/* 3. Кнопка (выровнена с заголовком) */}
-        <div className="container mx-auto px-6">
+        <Link href="/programs" className="container mx-auto px-6">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="bg-[#EEBF00] text-text-white hover:bg-orange-600 text-white px-8 md:px-10 md:py-4 rounded-full text-lg md:text-xl font-semibold transition-colors shadow-lg"
           >
-
             ПЕРЕЙТИ К ПРЕДЛОЖЕНИЯМ
-            
           </motion.button>
-        </div>
+        </Link>
 
         {/* 4. Нижний ряд: Три карточки */}
         <motion.div
@@ -99,20 +98,20 @@ export default function Home() {
         >
           <div className="container mx-auto  px-4 z-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
-              <FeatureCard 
-                icon="⛰️" 
-                title="Новый опыт" 
-                description="Даже для самых опытных перемещений" 
+              <FeatureCard
+                icon="⛰️"
+                title="Новый опыт"
+                description="Даже для самых опытных перемещений"
               />
-              <FeatureCard 
-                icon="👨‍👩‍👧‍👦" 
-                title="Хороший отдых" 
-                description="Особенно в семье и с друзьями" 
+              <FeatureCard
+                icon="👨‍👩‍👧‍👦"
+                title="Хороший отдых"
+                description="Особенно в семье и с друзьями"
               />
-              <FeatureCard 
-                icon="🎁" 
-                title="Сюрпризы" 
-                description="Мы позаботимся о ваших воспоминаниях" 
+              <FeatureCard
+                icon="🎁"
+                title="Сюрпризы"
+                description="Мы позаботимся о ваших воспоминаниях"
               />
             </div>
           </div>
@@ -122,10 +121,14 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ icon, title, description }: { 
-  icon: string; 
-  title: string; 
-  description: string 
+function FeatureCard({
+  icon,
+  title,
+  description,
+}: {
+  icon: string;
+  title: string;
+  description: string;
 }) {
   return (
     <div className="bg-white/90 backdrop-blur-sm p-6 rounded-t-lg shadow-xl hover:shadow-2xl transition-shadow">

@@ -1,10 +1,23 @@
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 import { OrderStatus } from "@prisma/client";
+import { NextRequest } from "next/server";
 
-export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const id = url.searchParams.get("id");
-  if (!id) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const id = (await params).id;
+
+  const formData = await request.formData();
+  const status = formData.get("status")?.toString().toUpperCase();
+  if (
+    !id ||
+    (status !== "APPROVED" &&
+      status !== "CANCELLED" &&
+      status !== "CONFIRMED" &&
+      status !== "COMPLETED" &&
+      status !== "NEW")
+  ) {
     return new Response(
       JSON.stringify({ message: "Error while creating order" }),
       {
@@ -13,9 +26,12 @@ export async function GET(request: Request) {
       }
     );
   }
-  const result = await prisma.auto.findUnique({
+  const result = await prisma.order.update({
     where: {
       id: id.toString(),
+    },
+    data: {
+      status: status as OrderStatus,
     },
   });
   return new Response(JSON.stringify(result), {

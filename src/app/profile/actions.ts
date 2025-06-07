@@ -1,38 +1,25 @@
-import { Order } from "@prisma/client"
-import { User } from "@prisma/client"
+import { Order } from "@/generated/prisma";
 
-export async function getOrderCabinet(): Promise<Order[]> {
-  const user = await getUserCabinet();
+export async function getOrderCabinet(userID: string): Promise<Order[]> {
+  const result = await fetch(`/api/order/user/${userID}`, {
+    method: "GET",
+  });
 
-  if (!user?.id) {
-    console.error("Нет user.id");
-    return [];
-  }
-
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/order?userId=${user.id}`,
-    { method: "GET" }
-  );
-
-  if (!result.ok) {
-    console.error("Ошибка при загрузке заявок:", await result.text());
+  if (result.status !== 201) {
     return [];
   }
 
   return result.json();
 }
 
-export async function getUserCabinet() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
-    method: "GET",
-    credentials: "include", // <== важно!
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  });
+export async function getUserCabinet(userID: string) {
+  try {
+    const res = await fetch(`/api/user/${userID}`, {
+      method: "GET",
+    });
 
-  if (!res.ok) return null;
-
-  return res.json();
+    return res.json();
+  } catch {
+    return null;
+  }
 }

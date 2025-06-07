@@ -1,19 +1,17 @@
 // components/OfferSection.tsx
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function OfferSection() {
   return (
-    <section className="container mx-auto px-4 py-16 max-w-4xl ">
+    <section className="container mx-auto px-4 py-16 max-w-4xl  w-full">
       {/* Заголовок секции */}
-      <h2 className="text-3xl font-bold text-center mb-12">
-        Также предлагаем
-      </h2>
+      <h2 className="text-3xl font-bold text-center mb-12">Также предлагаем</h2>
 
       {/* Карточки предложений */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-screen ml-[calc(-50vw+50%)]">
+      <div className="flex gap-10 w-full">
         {/* Карточка 1: Курсы фундамента */}
-        <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow flex-1">
           <div className="h-48 relative">
             <Image
               src="/images/courses.jpg" // Замените на свое изображение
@@ -31,7 +29,7 @@ export default function OfferSection() {
         </div>
 
         {/* Карточка 2: Подарочные сертификаты */}
-        <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow flex-1">
           <div className="h-48 relative">
             <Image
               src="/images/certificates.jpg" // Замените на свое изображение

@@ -1,31 +1,58 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import prisma from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+  const programs = await prisma.program.findMany({
+    include: { prices: true },
+  });
+
+  const locations = await prisma.location.findMany({
+    select: { id: true, name: true },
+  });
+
+  return new Response(JSON.stringify({ programs, locations }), {
+    status: 201,
+    headers: { "Content-Type": "application/json" },
+  });
+}
 
 export async function POST(req: Request) {
   try {
-    const data = await req.json();
-    const { fio, phone, email, programId, locationId, dateTime } = data;
+    const formData = await req.formData();
+    const data = Object.fromEntries(formData.entries());
+    const { name, phone, email, programId, locationId, dateTime } = data;
+    console.log(data);
 
     if (!programId || !locationId || !dateTime) {
-      return NextResponse.json({ success: false, error: 'Обязательные поля не заполнены' }, { status: 400 });
+      return new Response(JSON.stringify({ message: "User already exists" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     const order = await prisma.order.create({
       data: {
-        fio,
-        phone,
-        email,
-        programId,
-        locationId,
-        dateTime: new Date(dateTime),
-        // userId — можешь добавить, если передаёшь
-        userId: data.userId || null,
+        fio: name.toString(),
+        phone: phone.toString(),
+        email: email.toString(),
+        programId: programId.toString(),
+        locationId: locationId.toString(),
+        date: new Date(dateTime.toString()).toISOString(),
+        userId: data.userId.toString() ?? undefined,
       },
     });
 
-    return NextResponse.json({ success: true, order });
+    console.log("order", order);
+
+    return new Response(JSON.stringify(order), {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
-    console.error('Ошибка при создании заказа:', error);
-    return NextResponse.json({ success: false, error: 'Ошибка при создании заказа' }, { status: 500 });
+    console.error("Ошибка при создании заказа:", error);
+    return NextResponse.json(
+      { success: false, error: "Ошибка при создании заказа" },
+      { status: 500 }
+    );
   }
 }

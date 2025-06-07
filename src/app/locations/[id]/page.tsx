@@ -1,6 +1,6 @@
 // app/locations/[id]/page.tsx
-import { prisma } from '@/lib/prisma';
-import { notFound } from 'next/navigation';
+import prisma from "@/lib/db";
+import { notFound } from "next/navigation";
 
 interface LocationPageProps {
   params: {
@@ -18,11 +18,11 @@ export default async function LocationPage({ params }: LocationPageProps) {
   if (!location) return notFound();
 
   const imageSrc =
-    location.name === 'Коралловый город'
-      ? '/images/city.png'
-      : location.name === 'Безмолвный трон'
-      ? '/images/trone.png'
-      : '/images/zr.png';
+    location.name === "Коралловый город"
+      ? "/images/city.png"
+      : location.name === "Безмолвный трон"
+      ? "/images/trone.png"
+      : "/images/zr.png";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#fdfcdc] to-[#0081a7] text-white px-4 py-20">

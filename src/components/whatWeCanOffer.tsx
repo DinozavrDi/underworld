@@ -1,23 +1,26 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState } from "react";
+import Image from "next/image";
 
 const offers = [
   {
-    title: 'Обучение',
-    image: '/images/training.jpg',
-    description: 'Ваш первый раз? Мы поможем и всё покажем! Погружения проводятся с опытными инструкторами, в безопасных условиях.',
+    title: "Обучение",
+    image: "/images/training.jpg",
+    description:
+      "Ваш первый раз? Мы поможем и всё покажем! Погружения проводятся с опытными инструкторами, в безопасных условиях.",
   },
   {
-    title: 'Открытое море',
-    image: '/images/open-sea.jpg',
-    description: 'Давно мечтали погрузиться в настоящее море? С нами вы исследуете самые живописные участки прибрежных рифов и морскую фауну.',
+    title: "Открытое море",
+    image: "/images/open-sea.jpg",
+    description:
+      "Давно мечтали погрузиться в настоящее море? С нами вы исследуете самые живописные участки прибрежных рифов и морскую фауну.",
   },
   {
-    title: 'Особые локации',
-    image: '/images/special-locations.jpg',
-    description: 'Желаете увидеть нечто удивительное? Погружения на затонувшие корабли, гроты и уникальные подводные места уже ждут вас!',
+    title: "Особые локации",
+    image: "/images/special-locations.jpg",
+    description:
+      "Желаете увидеть нечто удивительное? Погружения на затонувшие корабли, гроты и уникальные подводные места уже ждут вас!",
   },
 ];
 
@@ -36,8 +39,8 @@ export default function WhatWeCanOffer() {
               onClick={() => setActiveIndex(index)}
               className={`px-6 py-3 text-left rounded-l-full transition-all font-semibold ${
                 index === activeIndex
-                  ? 'bg-[#EEBF00] text-[#00334E]'
-                  : 'bg-white bg-opacity-10 hover:bg-opacity-20 text-white'
+                  ? "bg-[#EEBF00] text-[#00334E]"
+                  : "bg-white bg-opacity-10 hover:bg-opacity-20 text-white"
               }`}
             >
               {offer.title}
@@ -57,8 +60,12 @@ export default function WhatWeCanOffer() {
           <div className="p-6 flex-1 flex flex-col justify-between">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="md:flex-[2]">
-                <h3 className="text-2xl font-bold text-[#16C9E2] mb-2">{activeOffer.title}</h3>
-                <p className="text-white text-opacity-80 text-base">{activeOffer.description}</p>
+                <h3 className="text-2xl font-bold text-[#16C9E2] mb-2">
+                  {activeOffer.title}
+                </h3>
+                <p className="text-white text-opacity-80 text-base">
+                  {activeOffer.description}
+                </p>
               </div>
               <div className="md:flex-[1] flex justify-start md:justify-end items-start md:items-center">
                 <button className="bg-[#EEBF00] text-[#00334E] font-semibold py-4 px-16 rounded-full hover:bg-yellow-400 transition-colors">

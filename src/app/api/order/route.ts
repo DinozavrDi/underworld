@@ -1,28 +1,21 @@
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get("userId");
-
-    if (!userId) {
-      return new Response(
-        JSON.stringify({ message: "userId is required" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
     const orders = await prisma.order.findMany({
-      where: {
-        userId, // фильтруем только заявки авторизованного пользователя
-      },
       select: {
         id: true,
         email: true,
         fio: true,
         createdAt: true,
-        dateTime: true,
+        date: true,
         status: true,
+        user: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
         location: {
           select: {
             id: true,
@@ -45,9 +38,9 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("Ошибка при получении заявок:", error);
-    return new Response(
-      JSON.stringify({ message: "Ошибка сервера" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ message: "Ошибка сервера" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }

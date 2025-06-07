@@ -1,11 +1,35 @@
-import { prisma } from '@/lib/prisma';
+import { Prisma } from "@/generated/prisma";
 
 export async function getBookingData() {
-  const programs = await prisma.program.findMany({
-    include: { prices: true },
-  });
+  try {
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/booking`,
+      {
+        method: "GET",
+      }
+    );
 
-  const locations = await prisma.location.findMany();
+    if (result.status !== 201) return [];
 
-  return { programs, locations };
+    return result.json();
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function createBooking(formData: FormData) {
+  try {
+    const result = await fetch(`/api/booking`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (result.status !== 201) return null;
+
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }

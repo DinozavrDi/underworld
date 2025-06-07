@@ -6,7 +6,6 @@ import LocationsList from "./components/LocationList";
 export default function LocationsPage() {
   return (
     <main>
-
       <img
         src="/images/image34.png"
         alt="Waves2"
@@ -14,11 +13,11 @@ export default function LocationsPage() {
       />
       <LocationIntro />
       <>
-      <img
-        src="/images/image33.png"
-        alt="Waves1"
-        className="absolute top-120 left-0 w-full h-auto pointer-events-none"
-      />
+        <img
+          src="/images/image33.png"
+          alt="Waves1"
+          className="absolute top-120 left-0 w-full h-auto pointer-events-none"
+        />
       </>
       <main className="min-h-screen">
         <section className="max-w-6xl mx-auto">

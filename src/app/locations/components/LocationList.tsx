@@ -1,6 +1,6 @@
 // app/locations/LocationsList.tsx
-import Link from 'next/link';
-import { prisma } from '@/lib/prisma';
+import prisma from "@/lib/db";
+import Link from "next/link";
 
 export default async function LocationsList() {
   const locations = await prisma.location.findMany();
@@ -29,11 +29,11 @@ export default async function LocationsList() {
             <Link href={`/locations/${location.id}`}>
               <img
                 src={
-                  location.name === 'Коралловый город'
-                    ? '/images/city.png'
-                    : location.name === 'Безмолвный трон'
-                    ? '/images/trone.png'
-                    : '/images/zr.png'
+                  location.name === "Коралловый город"
+                    ? "/images/city.png"
+                    : location.name === "Безмолвный трон"
+                    ? "/images/trone.png"
+                    : "/images/zr.png"
                 }
                 alt={location.name}
                 className="w-full max-w-xl transition-transform duration-300 hover:scale-105 cursor-pointer"
