@@ -20,7 +20,7 @@ export default function LoginForm() {
     if (result?.error) {
       setError("Неверный email или пароль");
     } else if (result?.ok) {
-      router.push("/profile");
+      router.push("/");
       router.refresh();
     }
   };
