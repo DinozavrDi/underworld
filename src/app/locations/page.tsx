@@ -1,9 +1,12 @@
 // app/locations/page.tsx
 
+import { getLocations } from "./actions";
 import LocationIntro from "./components/LocationIntro";
 import LocationsList from "./components/LocationList";
 
-export default function LocationsPage() {
+export default async function LocationsPage() {
+  const locations = await getLocations();
+
   return (
     <main>
       <img
@@ -21,7 +24,7 @@ export default function LocationsPage() {
       </>
       <div className="min-h-screen">
         <section className="max-w-6xl mx-auto">
-          <LocationsList />
+          <LocationsList locations={locations} />
         </section>
       </div>
       {/* Тут будут другие блоки */}

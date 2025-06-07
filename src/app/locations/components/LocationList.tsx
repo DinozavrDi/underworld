@@ -1,14 +1,16 @@
-// app/locations/LocationsList.tsx
 import prisma from "@/lib/db";
 import Link from "next/link";
 import { getLocations } from "../actions";
+import { Location } from "@/generated/prisma";
 
-export default async function LocationsList() {
-  const locations = await getLocations();
-
+export default async function LocationsList({
+  locations,
+}: {
+  locations: Location[];
+}) {
   return (
     <div className="flex flex-col gap-24 px-4 py-20">
-      {locations.map((location) => (
+      {locations.map((location: Location) => (
         <div
           key={location.id}
           className="flex flex-col md:flex-row items-center md:items-stretch md:justify-between gap-10"
