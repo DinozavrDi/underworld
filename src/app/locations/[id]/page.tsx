@@ -2,13 +2,11 @@ import prisma from "@/lib/db";
 import { notFound } from "next/navigation";
 import { getLocations } from "../actions";
 
-interface LocationPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function LocationPage({ params }: LocationPageProps) {
+export default async function LocationPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const locationId = params.id;
 
   const location = await getLocations(locationId);
