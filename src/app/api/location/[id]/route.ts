@@ -1,4 +1,3 @@
-import { Location } from "@/generated/prisma";
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
