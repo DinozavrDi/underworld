@@ -20,6 +20,16 @@ export async function GET(
     },
   });
 
+  if (!locations) {
+    return new Response(
+      JSON.stringify({ message: "Error while creating order" }),
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
   return new Response(JSON.stringify(locations), {
     status: 201,
     headers: { "Content-Type": "application/json" },
