@@ -21,8 +21,8 @@ export default function StatusBlock() {
   }, []);
 
   return (
-    <section className="bg-white px-3 py-2 rounded-lg">
-      <table className="w-full rounded-lg ">
+    <section className="bg-white px-3 py-2 rounded-lg overflow-x-auto">
+      <table className="w-full rounded-lg border-separate border-spacing-y-2 ">
         <thead>
           <tr>
             <CustomTH>ID заказа</CustomTH>
@@ -33,7 +33,7 @@ export default function StatusBlock() {
             <CustomTH>Статус</CustomTH>
           </tr>
         </thead>
-        <tbody>
+        <tbody className=" table-fixed ">
           {orders.map((order) => (
             <OrderInTable order={order} key={order.id} />
           ))}
@@ -52,7 +52,7 @@ function CustomTH({ children }: { children: React.ReactNode }) {
 }
 
 function CustomTD({ children }: { children: React.ReactNode }) {
-  return <td className="text-black">{children}</td>;
+  return <td className="text-black whitespace-nowrap">{children}</td>;
 }
 
 function OrderInTable({
@@ -68,7 +68,7 @@ function OrderInTable({
     await changeOrderStatus(formData, order.id);
   };
   return (
-    <tr>
+    <tr className="p-4">
       <CustomTD>{order.id}</CustomTD>
       <CustomTD>{order.user?.name}</CustomTD>
       <CustomTD>{order.location.name}</CustomTD>
