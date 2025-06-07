@@ -12,13 +12,13 @@ const offers = [
   },
   {
     title: "Открытое море",
-    image: "/images/open-sea.jpg",
+    image: "/images/ocean.jpg",
     description:
       "Давно мечтали погрузиться в настоящее море? С нами вы исследуете самые живописные участки прибрежных рифов и морскую фауну.",
   },
   {
     title: "Особые локации",
-    image: "/images/special-locations.jpg",
+    image: "/images/special.jpg",
     description:
       "Желаете увидеть нечто удивительное? Погружения на затонувшие корабли, гроты и уникальные подводные места уже ждут вас!",
   },
