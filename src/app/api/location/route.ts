@@ -12,6 +12,13 @@ export async function GET(req: NextRequest) {
     },
   });
 
+  if (!locations) {
+    return new Response(JSON.stringify([]), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   return new Response(JSON.stringify(locations), {
     status: 201,
     headers: { "Content-Type": "application/json" },

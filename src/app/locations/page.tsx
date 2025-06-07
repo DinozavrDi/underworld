@@ -19,11 +19,11 @@ export default function LocationsPage() {
           className="absolute top-120 left-0 w-full h-auto pointer-events-none"
         />
       </>
-      <main className="min-h-screen">
+      <div className="min-h-screen">
         <section className="max-w-6xl mx-auto">
           <LocationsList />
         </section>
-      </main>
+      </div>
       {/* Тут будут другие блоки */}
     </main>
   );
