@@ -1,6 +1,6 @@
-// app/locations/[id]/page.tsx
 import prisma from "@/lib/db";
 import { notFound } from "next/navigation";
+import { getLocations } from "../actions";
 
 interface LocationPageProps {
   params: {
@@ -9,11 +9,7 @@ interface LocationPageProps {
 }
 
 export default async function LocationPage({ params }: LocationPageProps) {
-  const location = await prisma.location.findUnique({
-    where: {
-      id: params.id,
-    },
-  });
+  const location = await getLocations();
 
   if (!location) return notFound();
 
