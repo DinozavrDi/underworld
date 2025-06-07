@@ -9,7 +9,9 @@ interface LocationPageProps {
 }
 
 export default async function LocationPage({ params }: LocationPageProps) {
-  const location = await getLocations();
+  const locationId = params.id;
+
+  const location = await getLocations(locationId);
 
   if (!location) return notFound();
 
