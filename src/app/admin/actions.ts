@@ -2,6 +2,7 @@ export async function getAdminOrders() {
   try {
     const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/order`, {
       method: "GET",
+      cache: "no-cache",
     });
 
     if (result.status !== 200) return [];
