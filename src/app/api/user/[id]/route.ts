@@ -1,5 +1,5 @@
+import { OrderStatus } from "@/generated/prisma";
 import prisma from "@/lib/db";
-import { OrderStatus } from "@prisma/client";
 import { NextRequest } from "next/server";
 
 export async function GET(
