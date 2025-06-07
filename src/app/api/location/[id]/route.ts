@@ -2,8 +2,16 @@ import { Location } from "@/generated/prisma";
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const id = (await params).id;
+
   const locations = await prisma.location.findMany({
+    where: {
+      id: id.toString(),
+    },
     select: {
       id: true,
       name: true,
