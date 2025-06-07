@@ -1,15 +1,25 @@
 "use client";
 
 import { Prisma } from "@/generated/prisma";
-import { changeOrderStatus } from "../actions";
+import { changeOrderStatus, getAdminOrders } from "../actions";
+import { useEffect, useState } from "react";
 
-export default function StatusBlock({
-  orders,
-}: {
-  orders: Prisma.OrderGetPayload<{
-    include: { program: true; location: true; user: true };
-  }>[];
-}) {
+export default function StatusBlock() {
+  const [orders, setOrders] = useState<
+    Prisma.OrderGetPayload<{
+      include: { program: true; location: true; user: true };
+    }>[]
+  >([]);
+
+  useEffect(() => {
+    const fetchOrder = async () => {
+      const orders = await getAdminOrders();
+      setOrders(orders);
+    };
+
+    fetchOrder();
+  }, []);
+
   return (
     <section className="bg-white px-3 py-2 rounded-lg">
       <table className="w-full rounded-lg ">
