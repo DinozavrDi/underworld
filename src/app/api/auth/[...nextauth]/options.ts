@@ -38,14 +38,6 @@ export const options: NextAuthOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-
-  pages: {
-    signIn: "/auth/sign-in",
-    signOut: "/auth/sign-out",
-    error: "/auth/sign-in",
-    verifyRequest: "/auth/verify-request",
-    newUser: "/auth/registration",
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
