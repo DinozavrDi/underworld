@@ -23,7 +23,6 @@ export default async function LocationsPage() {
           <LocationsList />
         </section>
       </div>
-      {/* Тут будут другие блоки */}
     </main>
   );
 }

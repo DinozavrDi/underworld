@@ -1,5 +1,4 @@
 "use client";
-import prisma from "@/lib/db";
 import Link from "next/link";
 import { getLocations } from "../actions";
 import { Location } from "@/generated/prisma";
