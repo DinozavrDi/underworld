@@ -2,7 +2,7 @@ import { Location } from "@/generated/prisma";
 
 export async function getLocations(): Promise<Location[]> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/location`, {
+    const res = await fetch(`/api/location`, {
       method: "GET",
     });
 
