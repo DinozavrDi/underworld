@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   }
 
   return new Response(JSON.stringify(locations), {
-    status: 201,
+    status: 200,
     headers: { "Content-Type": "application/json" },
   });
 }

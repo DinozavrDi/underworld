@@ -6,7 +6,7 @@ export async function getLocations(): Promise<Location[]> {
       method: "GET",
     });
 
-    if (res.status !== 201) return [];
+    if (res.status !== 200) return [];
 
     return res.json();
   } catch {

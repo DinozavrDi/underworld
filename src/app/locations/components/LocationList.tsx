@@ -1,13 +1,21 @@
+"use client";
 import prisma from "@/lib/db";
 import Link from "next/link";
 import { getLocations } from "../actions";
 import { Location } from "@/generated/prisma";
+import { useEffect, useState } from "react";
 
-export default async function LocationsList({
-  locations,
-}: {
-  locations: Location[];
-}) {
+export default async function LocationsList() {
+  const [locations, setLocations] = useState<Location[]>([]);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const locations = await getLocations();
+      setLocations(locations);
+    };
+    fetchLocations();
+  }, []);
+
   return (
     <div className="flex flex-col gap-24 px-4 py-20">
       {locations.map((location: Location) => (

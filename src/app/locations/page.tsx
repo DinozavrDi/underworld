@@ -3,8 +3,6 @@ import LocationIntro from "./components/LocationIntro";
 import LocationsList from "./components/LocationList";
 
 export default async function LocationsPage() {
-  const locations = await getLocations();
-
   return (
     <main>
       <img
@@ -22,7 +20,7 @@ export default async function LocationsPage() {
       </>
       <div className="min-h-screen">
         <section className="max-w-6xl mx-auto">
-          <LocationsList locations={locations} />
+          <LocationsList />
         </section>
       </div>
       {/* Тут будут другие блоки */}
