@@ -4,7 +4,7 @@ import { getLocations } from "../actions";
 import { Location } from "@/generated/prisma";
 import { useEffect, useState } from "react";
 
-export default async function LocationsList() {
+export default function LocationsList() {
   const [locations, setLocations] = useState<Location[]>([]);
 
   useEffect(() => {
