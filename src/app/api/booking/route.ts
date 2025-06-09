@@ -38,7 +38,7 @@ export async function POST(req: Request) {
         programId: programId.toString(),
         locationId: locationId.toString(),
         date: new Date(dateTime.toString()).toISOString(),
-        userId: data.userId.toString() ?? undefined,
+        userId: data?.userId?.toString() ? data.userId.toString() : null,
       },
     });
 

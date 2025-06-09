@@ -89,7 +89,12 @@ function BookingForm({ programs, locations }: any) {
             options={locations}
           />
 
-          <Field name="dateTime" label="Дата и время" type="datetime-local" />
+          <Field
+            name="dateTime"
+            required
+            label="Дата и время"
+            type="datetime-local"
+          />
 
           <div className="mt-8 text-center">
             <button
@@ -160,9 +165,9 @@ function SessionBlock() {
     <>
       {!session && (
         <>
-          <Field name="name" label="ФИО" />
-          <Field name="phone" label="Телефон" />
-          <Field name="email" label="Почта" />
+          <Field required name="name" label="ФИО" />
+          <Field required name="phone" label="Телефон" />
+          <Field required name="email" label="Почта" />
         </>
       )}
     </>

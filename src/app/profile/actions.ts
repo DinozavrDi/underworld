@@ -17,6 +17,7 @@ export async function getUserCabinet(userID: string) {
   try {
     const res = await fetch(`/api/user/${userID}`, {
       method: "GET",
+      cache: "no-cache",
     });
 
     return res.json();
