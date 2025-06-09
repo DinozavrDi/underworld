@@ -70,7 +70,7 @@ function OrderInTable({
   return (
     <tr className="p-4">
       <CustomTD>{order.id}</CustomTD>
-      <CustomTD>{order.user ? order.user.email : order.email}</CustomTD>
+      <CustomTD>{order.email}</CustomTD>
       <CustomTD>{order.location.name}</CustomTD>
       <CustomTD>{order.program.title}</CustomTD>
       <CustomTD>{new Date(order.date).toLocaleDateString()}</CustomTD>
