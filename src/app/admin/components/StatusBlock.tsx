@@ -26,7 +26,7 @@ export default function StatusBlock() {
         <thead>
           <tr>
             <CustomTH>ID заказа</CustomTH>
-            <CustomTH>Пользователь</CustomTH>
+            <CustomTH>Заказчик</CustomTH>
             <CustomTH>Локация</CustomTH>
             <CustomTH>Программа</CustomTH>
             <CustomTH>Дата</CustomTH>
@@ -70,7 +70,7 @@ function OrderInTable({
   return (
     <tr className="p-4">
       <CustomTD>{order.id}</CustomTD>
-      <CustomTD>{order.user?.name}</CustomTD>
+      <CustomTD>{order.user ? order.user.email : order.email}</CustomTD>
       <CustomTD>{order.location.name}</CustomTD>
       <CustomTD>{order.program.title}</CustomTD>
       <CustomTD>{new Date(order.date).toLocaleDateString()}</CustomTD>
